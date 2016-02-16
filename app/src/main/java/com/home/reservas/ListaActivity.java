@@ -1,4 +1,4 @@
-package ejemplo.com.reservas;
+package com.home.reservas;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +14,7 @@ public class ListaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista);
+        //setContentView(R.layout.activity_lista);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
