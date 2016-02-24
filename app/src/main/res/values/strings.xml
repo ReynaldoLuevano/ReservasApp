@@ -16,4 +16,11 @@
     <string name="text_view_estado">Estado</string>
     <string name="button_insert">Insertar</string>
     <string name="button_clean">Limpiar</string>
+    <string name="question_cancel">¿Desea Cancelar?</string>
+    <string name="alert_message">Alerta</string>
+    <string name="button_ok">Ok</string>
+    <string name="app_error_message">Se ha producido una excepción</string>
+    <string name="button_close">Cerrar</string>
+    <string name="app_insert_message">El registro se ha insertado correctamente</string>
+    <string name="info_message">Información</string>
 </resources>

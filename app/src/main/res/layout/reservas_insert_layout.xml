@@ -185,7 +185,7 @@
         android:layout_marginTop="@dimen/top_dimension" >
 
         <Button
-            android:id="@+id/buttonCheckInCancel"
+            android:id="@+id/buttonReservaCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="true"
@@ -193,14 +193,14 @@
             tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/buttonCheckInEdit"
+            android:id="@+id/buttonReservaInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_insert"
             tools:ignore="ButtonStyle" />
 
         <Button
-            android:id="@+id/buttonCheckInCheck"
+            android:id="@+id/buttonReservaClean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="true"
