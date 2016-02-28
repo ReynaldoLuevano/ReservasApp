@@ -14,7 +14,7 @@ import retrofit.Retrofit;
  */
 public class HttpClientReservas {
 
-    public static final String CLOUD_IMPATIENT_URL = "http://192.168.1.37:8080/reservas/";
+    public static final String CLOUD_IMPATIENT_URL = "http://192.168.1.40:8080/reservas/";
 
     private static OkHttpClient httpClient = new OkHttpClient();
     private static Retrofit.Builder builder = new Retrofit.Builder();
@@ -22,10 +22,8 @@ public class HttpClientReservas {
     public static <S> S createClient(Class<S> serviceClass) {
 
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat("MM-dd-yyyy")
                 .create();
-
-
 
         builder.baseUrl(CLOUD_IMPATIENT_URL);
         builder.addConverterFactory(GsonConverterFactory.create(gson));

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:longClickable="false"
+    android:measureWithLargestChild="false">
+
+
+    <TextView
+        android:id="@+id/textViewNumeroReserva"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewNombreReserva"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/abc_text_size_title_material" />
+
+    <TextView
+        android:id="@+id/textViewFechaInicio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_subtitle_material_toolbar" />
+
+
+</LinearLayout>

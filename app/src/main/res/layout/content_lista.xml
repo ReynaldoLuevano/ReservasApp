@@ -14,12 +14,29 @@
     android:gravity="center_vertical">
 
 
-    <ListView
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:foregroundGravity="center_vertical|center_horizontal"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="true" />
+
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/listViewReservas"
         android:layout_alignParentTop="false"
         android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true" />
+        android:layout_alignParentEnd="false"
+        android:footerDividersEnabled="false"
+        android:clickable="true"
+        android:divider="@color/button_material_light"
+        android:dividerHeight="5dp"
+        android:drawSelectorOnTop="false" />
+
+
+
 </RelativeLayout>

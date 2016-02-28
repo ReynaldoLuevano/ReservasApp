@@ -1,16 +1,8 @@
 package ejemplo.com.reservas;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.DialogInterface;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,16 +13,10 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleCursorAdapter;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
 import java.util.List;
 
+import ejemplo.com.reservas.adapter.ItemReservaAdapter;
 import ejemplo.com.reservas.api.ICloudReservas;
 import ejemplo.com.reservas.bean.Reserva;
 import ejemplo.com.reservas.client.HttpClientReservas;
@@ -38,15 +24,12 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Retrofit;
 
-public class ListaActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class ListaActivity extends AppCompatActivity{
 
-    SimpleCursorAdapter myAdapter;
     private ICloudReservas iCloudReservas;
-    private final OkHttpClient client = new OkHttpClient();
-    private final Gson gson = new Gson();
-
+    private ListView misReservasListView;
     private List<Reserva> misReservas;
-    static final String[] PROJECTION = new String[] {"Reserva1","Reserva2", "Reserva3","Reserva4","Reserva5", "Reserva6","Reserva7","Reserva8", "Reserva9",};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,27 +46,15 @@ public class ListaActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
-
-
-        //Creo barra de progreso mientras la lista carga
-        ProgressBar progressBar = new ProgressBar(this);
-        progressBar.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
-
-        progressBar.setIndeterminate(true);
-        ListView lista = (ListView) findViewById(R.id.listView);
-        lista.setEmptyView(progressBar);
-
-        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-        root.addView(progressBar);
-
         initializeActivity();
     }
 
     private void initializeActivity()
     {
-
+        misReservasListView = (ListView) findViewById(R.id.listViewReservas);
         iCloudReservas = HttpClientReservas.createClient(ICloudReservas.class);
+
+        //TODO modificar el 1 por el ID del usuario que se autentica
         loadDataFromReservasCloudService("1");
     }
 
@@ -110,38 +81,23 @@ public class ListaActivity extends AppCompatActivity implements LoaderManager.Lo
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this, ContactsContract.Data.CONTENT_URI,
-                PROJECTION,"SELECTION" , null, null);
-    }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
 
     private void loadDataFromReservasCloudService(String usuario)
     {
        Call<List<Reserva>> callReservasList = iCloudReservas.getMisReservas(usuario);
-        callReservasList.enqueue(new Callback() {
+        callReservasList.enqueue(new Callback<List<Reserva>>() {
 
             @Override
-            public void onResponse(retrofit.Response response, Retrofit retrofit) {
+            public void onResponse(retrofit.Response<List<Reserva>> response, Retrofit retrofit) {
                 Log.d("ListActivity", "Status Code = " + response.code());
                 if(response.isSuccess()){
-                    Gson gson = new Gson();
-                    String json = response.body().toString();
-
-
-                    response.body();
+                    misReservas = response.body();
                     if(misReservas != null){
-                        Log.d("ListActivity", "wList = " + misReservas.toString());
+                       laodMisReservasIU(misReservas);
+                        //Creo barra de progreso mientras la lista carga
+                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                        progressBar.setVisibility(View.INVISIBLE);
 
                     }else{
                         System.out.print("error");
@@ -157,6 +113,22 @@ public class ListaActivity extends AppCompatActivity implements LoaderManager.Lo
                 t.printStackTrace();
             }
         });
+
+    }
+
+    private void laodMisReservasIU(List<Reserva> reservas){
+
+        try {
+            if(reservas.size() > 0){
+                ItemReservaAdapter adapter = new ItemReservaAdapter (this, reservas);
+                misReservasListView.setAdapter(adapter);
+                for (Reserva r: reservas) {
+                    Log.i("Reserva", "w = " + r.toString());
+                }
+            }
+        } catch (Exception e) {
+            Log.e("Reserva", "Exception: " + e.getMessage());
+        }
 
     }
 }

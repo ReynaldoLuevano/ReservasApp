@@ -12,12 +12,11 @@ public class Reserva {
     private String lugar;
     private int estado;
     private String id_persona;
+    private Date fecha_inicio;
 
     public int getNumero() {
         return numero;
     }
-
-    private Date fecha_inicio;
 
     public void setNumero(int numero) {
         this.numero = numero;
