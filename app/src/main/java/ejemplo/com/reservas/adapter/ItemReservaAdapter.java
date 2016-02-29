@@ -51,7 +51,6 @@ public class ItemReservaAdapter extends BaseAdapter{
 
             numeroReserva.setText(String.valueOf(reserva.getNumero()));
             nombreReserva.setText(reserva.getLugar());
-            int x=0;
             SimpleDateFormat dateFormat =  new SimpleDateFormat("MM-dd-yyyy");
             fechaInicioReserva.setText(dateFormat.format(reserva.getFecha_inicio()));
 
