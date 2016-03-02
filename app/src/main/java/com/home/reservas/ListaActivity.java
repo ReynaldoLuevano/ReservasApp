@@ -1,25 +1,24 @@
-package ejemplo.com.reservas;
+package com.home.reservas;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.util.List;
 
-import ejemplo.com.reservas.adapter.ItemReservaAdapter;
-import ejemplo.com.reservas.api.ICloudReservas;
-import ejemplo.com.reservas.bean.Reserva;
-import ejemplo.com.reservas.client.HttpClientReservas;
+import com.home.reservas.adapter.ItemReservaAdapter;
+import com.home.reservas.api.ICloudReservas;
+import com.home.reservas.model.Reserva;
+import com.home.reservas.client.HttpClientReservas;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Retrofit;
@@ -42,7 +41,8 @@ public class ListaActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO conectar con la actividad de Alta
+                Intent intent = new Intent(ListaActivity.this, InsertarReservaActivity.class);
+                startActivity(intent);
             }
         });
 

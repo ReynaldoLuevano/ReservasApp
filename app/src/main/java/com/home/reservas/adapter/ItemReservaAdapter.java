@@ -1,4 +1,4 @@
-package ejemplo.com.reservas.adapter;
+package com.home.reservas.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import ejemplo.com.reservas.R;
-import ejemplo.com.reservas.bean.Reserva;
+import com.home.reservas.R;
+import com.home.reservas.model.Reserva;
 
 /**
  * Created by Reynaldo on 25/02/2016.

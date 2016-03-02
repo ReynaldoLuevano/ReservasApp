@@ -13,6 +13,8 @@ import com.home.reservas.api.ICloudReservas;
 import com.home.reservas.client.HttpClientReservas;
 import com.home.reservas.model.Reserva;
 
+import java.sql.Date;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -92,18 +94,18 @@ public class InsertarReservaActivity extends Activity{
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e("insertReservaCloudService", " Exception: " + t.getMessage());
+                Log.e("insertReservaCloudServ", " Exception: " + t.getMessage());
                 t.printStackTrace();
                 popUpAppError();
             }
 
             @Override
             public void onResponse(Response<Reserva> response, Retrofit retrofit) {
-                Log.d("insertReservaCloudService", "Status Code = " + response.code());
+                Log.d("insertReservaCloudServ", "Status Code = " + response.code());
                 if(response.isSuccess()){
                     uReserva = response.body();
                     if(uReserva != null){
-                        Log.d("insertReservaCloudService", "reserva = " + uReserva.toString());
+                        Log.d("insertReservaCloudServ", "reserva = " + uReserva.toString());
                         loadReservaEditText(uReserva);
                         popUpAppUpate();
                     }else{
@@ -121,9 +123,9 @@ public class InsertarReservaActivity extends Activity{
 
         try {
             reserva.setNumero(0);
-            reserva.setIdPersona(editTextReservaNombre.getText().toString());
-            reserva.setFechaInicio(editTextReservaFInicio.getText().toString());
-            reserva.setFechaFin(editTextReservaFFin.getText().toString());
+            reserva.setId_persona(editTextReservaNombre.getText().toString());
+            reserva.setFecha_inicio(Date.valueOf(editTextReservaFInicio.getText().toString()));
+            reserva.setFecha_fin(Date.valueOf(editTextReservaFFin.getText().toString()));
             reserva.setHoras(Integer.parseInt(editTextReservaHora.getText().toString()));
             reserva.setLugar(editTextReservaLugar.getText().toString());
             reserva.setEstado(Integer.parseInt(editTextReservaEstado.getText().toString()));
@@ -137,9 +139,9 @@ public class InsertarReservaActivity extends Activity{
     private void loadReservaEditText(Reserva reserva){
         try {
             editTextReservaId.setText(reserva.getNumero());
-            editTextReservaNombre.setText(reserva.getIdPersona());
-            editTextReservaFInicio.setText(reserva.getFechaInicio());
-            editTextReservaFFin.setText(reserva.getFechaFin());
+            editTextReservaNombre.setText(reserva.getId_persona());
+            editTextReservaFInicio.setText(reserva.getFecha_inicio().toString());
+            editTextReservaFFin.setText(reserva.getFecha_fin().toString());
             editTextReservaHora.setText(reserva.getHoras());
             editTextReservaLugar.setText(reserva.getLugar());
             editTextReservaEstado.setText(reserva.getEstado());

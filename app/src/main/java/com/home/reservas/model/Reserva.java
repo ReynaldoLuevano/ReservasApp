@@ -1,86 +1,94 @@
 package com.home.reservas.model;
 
+import java.util.Date;
+
+/**
+ * Created by Reynaldo on 17/02/2016.
+ */
 public class Reserva {
+    private int numero;
+    private Date fecha_fin;
+    private int horas;
+    private String lugar;
+    private int estado;
+    private String id_persona;
+    private Date fecha_inicio;
 
-	private int numero;
-	private String idPersona;
-	private String fechaInicio;
-	private String fechaFin;
-	private int horas;
-	private String lugar;
-	private int estado;
 
-	public Reserva() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public Reserva() {
+        super();
+    }
 
-	public Reserva(int numero, String idPersona, String fechaInicio, String fechaFin, int horas, String lugar,
-			int estado) {
-		super();
-		this.numero = numero;
-		this.idPersona = idPersona;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.horas = horas;
-		this.lugar = lugar;
-		this.estado = estado;
-	}
+    public Reserva(int numero, String idPersona, Date fechaInicio, Date fechaFin, int horas, String lugar,
+                   int estado) {
+        super();
+        this.numero = numero;
+        this.id_persona = idPersona;
+        this.fecha_inicio = fechaInicio;
+        this.fecha_fin = fechaFin;
+        this.horas = horas;
+        this.lugar = lugar;
+        this.estado = estado;
+    }
 
-	public int getNumero() {
-		return numero;
-	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
 
-	public String getIdPersona() {
-		return idPersona;
-	}
 
-	public void setIdPersona(String idPersona) {
-		this.idPersona = idPersona;
-	}
+    public int getNumero() {
+        return numero;
+    }
 
-	public String getFechaInicio() {
-		return fechaInicio;
-	}
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
-	public void setFechaInicio(String fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    public String getId_persona() {
+        return id_persona;
+    }
 
-	public String getFechaFin() {
-		return fechaFin;
-	}
+    public void setId_persona(String id_persona) {
+        this.id_persona = id_persona;
+    }
 
-	public void setFechaFin(String fechaFin) {
-		this.fechaFin = fechaFin;
-	}
+    public Date getFecha_inicio() {
+        return fecha_inicio;
+    }
 
-	public int getHoras() {
-		return horas;
-	}
+    public void setFecha_inicio(Date fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
 
-	public void setHoras(int horas) {
-		this.horas = horas;
-	}
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
 
-	public String getLugar() {
-		return lugar;
-	}
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
 
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
-	}
+    public int getHoras() {
+        return horas;
+    }
 
-	public int getEstado() {
-		return estado;
-	}
+    public void setHoras(int horas) {
+        this.horas = horas;
+    }
 
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
 
 }
