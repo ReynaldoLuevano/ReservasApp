@@ -33,9 +33,9 @@ public class InsertarReservaActivity extends Activity{
     private EditText editTextReservaLugar;
     private EditText editTextReservaEstado;
 
-    private Button buttonReservaInsert;
-    private Button buttonReservaCancel;
-    private Button buttonReservaClean;
+    private Button btnReservaInsert;
+    private Button btnReservaCancel;
+    private Button btnReservaClean;
 
     private ICloudReservas iCloudReservas;
     private Reserva uReserva;
@@ -43,6 +43,7 @@ public class InsertarReservaActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.reservas_insert_layout);
 
         initializeActivity();
     }
@@ -59,25 +60,18 @@ public class InsertarReservaActivity extends Activity{
         editTextReservaLugar = (EditText) findViewById(R.id.editTextLugar);
         editTextReservaEstado = (EditText) findViewById(R.id.editTextEstado);
 
-        buttonReservaInsert = (Button) findViewById(R.id.buttonReservaInsert);
-        buttonReservaCancel = (Button) findViewById(R.id.buttonReservaCancel);
-        buttonReservaClean = (Button) findViewById(R.id.buttonReservaClean);
+        btnReservaCancel = (Button) findViewById(R.id.buttonReservaCancel);
+        btnReservaInsert = (Button) findViewById(R.id.buttonReservaInsert);
+        btnReservaClean = (Button) findViewById(R.id.buttonReservaClean);
 
-        buttonReservaCancel.setOnClickListener(new View.OnClickListener() {
+        btnReservaCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popUpCancel(v);
             }
         });
 
-        buttonReservaInsert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cleanReservaEditText();
-            }
-        });
-
-        buttonReservaClean.setOnClickListener(new View.OnClickListener() {
+        btnReservaInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Reserva reserva = readReservaEditText();
@@ -85,6 +79,12 @@ public class InsertarReservaActivity extends Activity{
             }
         });
 
+        btnReservaClean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cleanReservaEditText();
+            }
+        });
     }
 
     private void insertReservaCloudService(ICloudReservas cloudReservas, Reserva uDataReserva){
@@ -94,18 +94,18 @@ public class InsertarReservaActivity extends Activity{
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e("insertReservaCloudServ", " Exception: " + t.getMessage());
+                Log.e("insertReservaCloud", " Exception: " + t.getMessage());
                 t.printStackTrace();
                 popUpAppError();
             }
 
             @Override
             public void onResponse(Response<Reserva> response, Retrofit retrofit) {
-                Log.d("insertReservaCloudServ", "Status Code = " + response.code());
+                Log.d("insertReservaCloud", "Status Code = " + response.code());
                 if(response.isSuccess()){
                     uReserva = response.body();
                     if(uReserva != null){
-                        Log.d("insertReservaCloudServ", "reserva = " + uReserva.toString());
+                        Log.d("insertReservaCloud", "reserva = " + uReserva.toString());
                         loadReservaEditText(uReserva);
                         popUpAppUpate();
                     }else{
@@ -149,9 +149,7 @@ public class InsertarReservaActivity extends Activity{
         } catch (Exception e) {
             Log.e("loadCheckInEditText", "Exception: " + e.getMessage());
         }
-
     }
-
 
     private void cleanReservaEditText(){
 
@@ -210,5 +208,4 @@ public class InsertarReservaActivity extends Activity{
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 }

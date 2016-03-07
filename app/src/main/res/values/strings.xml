@@ -1,12 +1,14 @@
 <resources>
+
     <string name="app_name">Reservas</string>
     <string name="action_settings">Settings</string>
+
+    <!-- text view -->
+
     <string name="text_view_reserva">Reserva</string>
     <string name="text_view_nombre">Nombre</string>
     <string name="text_view_date_begin">Fecha Inicio</string>
     <string name="text_view_date_end">Fecha Fin</string>
-    <string name="button_cancel">Cancelar</string>
-    <string name="button_accept">Aceptar</string>
     <string name="text_view_header">Insertar</string>
     <string name="text_view_id_reserva">Reserva</string>
     <string name="text_view_fecha_inicio">F. Inicio</string>
@@ -14,13 +16,22 @@
     <string name="text_view_hora">Hora</string>
     <string name="text_view_lugar">Lugar</string>
     <string name="text_view_estado">Estado</string>
+
+    <!-- botones -->
     <string name="button_insert">Insertar</string>
     <string name="button_clean">Limpiar</string>
-    <string name="question_cancel">¿Desea Cancelar?</string>
-    <string name="alert_message">Alerta</string>
+    <string name="button_save">Guardar</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="button_accept">Aceptar</string>
     <string name="button_ok">Ok</string>
-    <string name="app_error_message">Se ha producido una excepción</string>
     <string name="button_close">Cerrar</string>
+    <string name="question_cancel">¿Desea Cancelar?</string>
+
+    <!-- mensajes -->
+    <string name="alert_message">Alerta</string>
+    <string name="app_error_message">Se ha producido una excepción</string>
     <string name="app_insert_message">El registro se ha insertado correctamente</string>
+    <string name="app_update_message">El registro se ha actualizado correctamente</string>
     <string name="info_message">Información</string>
+
 </resources>

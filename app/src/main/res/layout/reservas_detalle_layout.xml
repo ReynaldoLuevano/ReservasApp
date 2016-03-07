@@ -16,11 +16,6 @@
         android:layout_marginTop="@dimen/top_dimension"
         tools:ignore="RtlHardcoded" >
 
-        <TextView
-            android:id="@+id/textViewReservaHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_view_header" />
     </TableRow>
 
     <TableLayout
@@ -182,31 +177,17 @@
         android:id="@+id/tableRowCheckInButtons"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/top_dimension" >
+        android:layout_marginTop="@dimen/top_dimension"
+        android:layout_gravity="center">
 
         <Button
-            android:id="@+id/buttonReservaCancel"
+            android:id="@+id/buttonReservaGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="true"
-            android:text="@string/button_cancel"
+            android:text="@string/button_save"
             tools:ignore="ButtonStyle" />
 
-        <Button
-            android:id="@+id/buttonReservaInsert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_insert"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/buttonReservaClean"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="true"
-            android:text="@string/button_clean"
-            tools:ignore="ButtonStyle" />
 
     </TableRow>
 </LinearLayout>

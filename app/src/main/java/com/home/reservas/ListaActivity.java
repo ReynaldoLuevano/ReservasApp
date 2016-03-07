@@ -2,7 +2,6 @@ package com.home.reservas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -37,6 +37,7 @@ public class ListaActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //boton flotante para dar de alta nuevas reservas
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_anadeReserva);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +46,29 @@ public class ListaActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+        //fin de boton flotante para dar de alta nuevas reservas
 
         initializeActivity();
     }
 
     private void initializeActivity()
     {
-        misReservasListView = (ListView) findViewById(R.id.listViewReservas);
         iCloudReservas = HttpClientReservas.createClient(ICloudReservas.class);
+        misReservasListView = (ListView) findViewById(R.id.listViewReservas);
+
+        //clikcs en la lista de Reservas
+        misReservasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ReservasData.getInstace().setReserva((Reserva) misReservasListView.getAdapter().getItem(position));
+                Intent intent = new Intent(ListaActivity.this,DetalleReservaActivity.class);
+                startActivity(intent);
+            }
+        });
+        //clikcs en la lista de Reservas
+
+
 
         //TODO modificar el 1 por el ID del usuario que se autentica
         loadDataFromReservasCloudService("1");
@@ -61,7 +77,6 @@ public class ListaActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_lista, menu);
         return true;
     }
@@ -72,9 +87,7 @@ public class ListaActivity extends AppCompatActivity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+         if (id == R.id.action_settings) {
             return true;
         }
 
@@ -95,7 +108,7 @@ public class ListaActivity extends AppCompatActivity{
                     misReservas = response.body();
                     if(misReservas != null){
                        laodMisReservasIU(misReservas);
-                        //Creo barra de progreso mientras la lista carga
+                        //barra de progreso desaparece al cargar la lista
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                         progressBar.setVisibility(View.INVISIBLE);
 

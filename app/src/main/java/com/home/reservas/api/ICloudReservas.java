@@ -17,4 +17,11 @@ public interface ICloudReservas {
 
 	@GET("misreservas")
 	Call<List<Reserva>> getMisReservas(@Query("usuario") String usuario);
+
+	@POST("updateReserva")
+	Call<Reserva> updateReserva(@Body Reserva reserva);
+
+	@POST("deleteReserva")
+	Call<Boolean> deleteReserva(@Body int reservaId);
+
 }
