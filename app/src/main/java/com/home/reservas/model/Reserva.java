@@ -7,12 +7,14 @@ import java.util.Date;
  */
 public class Reserva {
     private int numero;
+    private String id_persona;
+    private Date fecha_inicio;
     private Date fecha_fin;
     private int horas;
     private String lugar;
     private int estado;
-    private String id_persona;
-    private Date fecha_inicio;
+
+
 
 
     public Reserva() {
