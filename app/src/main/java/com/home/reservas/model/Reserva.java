@@ -14,9 +14,6 @@ public class Reserva {
     private String lugar;
     private int estado;
 
-
-
-
     public Reserva() {
         super();
     }

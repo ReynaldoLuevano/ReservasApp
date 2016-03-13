@@ -123,7 +123,8 @@ public class InsertarReservaActivity extends Activity{
 
         try {
             reserva.setNumero(0);
-            reserva.setId_persona(editTextReservaNombre.getText().toString());
+            //TODO modificar el ID de persona cuando se conecte con Google o Linkedin
+            reserva.setId_persona("1");
             reserva.setFecha_inicio(Date.valueOf(editTextReservaFInicio.getText().toString()));
             reserva.setFecha_fin(Date.valueOf(editTextReservaFFin.getText().toString()));
             reserva.setHoras(Integer.parseInt(editTextReservaHora.getText().toString()));
