@@ -13,13 +13,13 @@ import retrofit.http.Query;
 public interface ICloudReservas {
 
     @POST("insertReserva")
-	Call<Reserva> insertReserva(@Body Reserva reserva);
+	Call<Boolean> insertReserva(@Body Reserva reserva);
 
 	@GET("misreservas")
 	Call<List<Reserva>> getMisReservas(@Query("usuario") String usuario);
 
 	@POST("updateReserva")
-	Call<Reserva> updateReserva(@Body Reserva reserva);
+	Call<Boolean> updateReserva(@Body Reserva reserva);
 
 	@POST("deleteReserva")
 	Call<Boolean> deleteReserva(@Body int reservaId);

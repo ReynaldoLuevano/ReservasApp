@@ -25,8 +25,6 @@ import retrofit.Retrofit;
  */
 public class InsertarReservaActivity extends Activity{
 
-    private EditText editTextReservaId;
-    private EditText editTextReservaNombre;
     private EditText editTextReservaFInicio;
     private EditText editTextReservaFFin;
     private EditText editTextReservaHora;
@@ -52,8 +50,6 @@ public class InsertarReservaActivity extends Activity{
 
         iCloudReservas  = HttpClientReservas.createClient(ICloudReservas.class);
 
-        editTextReservaId = (EditText) findViewById(R.id.editTextReservaId);
-        editTextReservaNombre = (EditText) findViewById(R.id.editTextReservaNombre);
         editTextReservaFInicio = (EditText) findViewById(R.id.editTextFInicio);
         editTextReservaFFin = (EditText) findViewById(R.id.editTextFFin);
         editTextReservaHora = (EditText) findViewById(R.id.editTextHora);
@@ -89,8 +85,8 @@ public class InsertarReservaActivity extends Activity{
 
     private void insertReservaCloudService(ICloudReservas cloudReservas, Reserva uDataReserva){
 
-        Call<Reserva> callReserva = iCloudReservas.insertReserva(uDataReserva);
-        callReserva.enqueue(new Callback<Reserva>() {
+        Call<Boolean> callReserva = iCloudReservas.insertReserva(uDataReserva);
+        callReserva.enqueue(new Callback<Boolean>() {
 
             @Override
             public void onFailure(Throwable t) {
@@ -100,13 +96,11 @@ public class InsertarReservaActivity extends Activity{
             }
 
             @Override
-            public void onResponse(Response<Reserva> response, Retrofit retrofit) {
+            public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                 Log.d("insertReservaCloud", "Status Code = " + response.code());
                 if(response.isSuccess()){
-                    uReserva = response.body();
-                    if(uReserva != null){
-                        Log.d("insertReservaCloud", "reserva = " + uReserva.toString());
-                        loadReservaEditText(uReserva);
+
+                    if(response.body().booleanValue()==true){
                         popUpAppUpate();
                     }else{
                         popUpAppError();
@@ -122,7 +116,6 @@ public class InsertarReservaActivity extends Activity{
         Reserva reserva = new Reserva();
 
         try {
-            reserva.setNumero(0);
             //TODO modificar el ID de persona cuando se conecte con Google o Linkedin
             reserva.setId_persona("1");
             reserva.setFecha_inicio(Date.valueOf(editTextReservaFInicio.getText().toString()));
@@ -139,8 +132,6 @@ public class InsertarReservaActivity extends Activity{
 
     private void loadReservaEditText(Reserva reserva){
         try {
-            editTextReservaId.setText(reserva.getNumero());
-            editTextReservaNombre.setText(reserva.getId_persona());
             editTextReservaFInicio.setText(reserva.getFecha_inicio().toString());
             editTextReservaFFin.setText(reserva.getFecha_fin().toString());
             editTextReservaHora.setText(reserva.getHoras());
@@ -155,8 +146,6 @@ public class InsertarReservaActivity extends Activity{
     private void cleanReservaEditText(){
 
         try {
-            editTextReservaId.setText("");
-            editTextReservaNombre.setText("");
             editTextReservaFInicio.setText("");
             editTextReservaFFin.setText("");
             editTextReservaHora.setText("");
@@ -191,6 +180,7 @@ public class InsertarReservaActivity extends Activity{
                 .setCancelable(false).setNegativeButton(R.string.button_close, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
+                finish();
             }
         });
         AlertDialog alert = builder.create();
