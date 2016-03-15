@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.home.reservas.api.ICloudReservas;
 import com.home.reservas.client.HttpClientReservas;
+import com.home.reservas.fragment.DatePickerFragment;
 import com.home.reservas.model.Reserva;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -23,10 +26,10 @@ import retrofit.Retrofit;
 /**
  * Created by root on 24/02/16.
  */
-public class InsertarReservaActivity extends Activity{
+public class InsertarReservaActivity extends Activity implements DatePickerFragment.onDateSelectedListener{
 
-    private EditText editTextReservaFInicio;
-    private EditText editTextReservaFFin;
+    private TextView editTextReservaFInicio;
+    private TextView editTextReservaFFin;
     private EditText editTextReservaHora;
     private EditText editTextReservaLugar;
     private EditText editTextReservaEstado;
@@ -37,6 +40,7 @@ public class InsertarReservaActivity extends Activity{
 
     private ICloudReservas iCloudReservas;
     private Reserva uReserva;
+    SimpleDateFormat dateFormat =  new SimpleDateFormat(ReservasData.dateFormat);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class InsertarReservaActivity extends Activity{
 
     private void initializeActivity(){
 
+        final Bundle bundle = new Bundle(1);
         iCloudReservas  = HttpClientReservas.createClient(ICloudReservas.class);
 
         editTextReservaFInicio = (EditText) findViewById(R.id.editTextFInicio);
@@ -81,6 +86,27 @@ public class InsertarReservaActivity extends Activity{
                 cleanReservaEditText();
             }
         });
+
+        //evento de calendarios
+        editTextReservaFInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putInt("view",R.id.editTextFInicio);
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+        //evento de calendarios
+        editTextReservaFFin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle.putInt("view",R.id.editTextFFin);
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
     }
 
     private void insertReservaCloudService(ICloudReservas cloudReservas, Reserva uDataReserva){
@@ -98,14 +124,14 @@ public class InsertarReservaActivity extends Activity{
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                 Log.d("insertReservaCloud", "Status Code = " + response.code());
-                if(response.isSuccess()){
+                if (response.isSuccess()) {
 
-                    if(response.body().booleanValue()==true){
+                    if (response.body().booleanValue() == true) {
                         popUpAppUpate();
-                    }else{
+                    } else {
                         popUpAppError();
                     }
-                }else{
+                } else {
                     popUpAppError();
                 }
             }
@@ -156,6 +182,14 @@ public class InsertarReservaActivity extends Activity{
             Log.e("cleanReservaEditText", "Exception: " + e.getMessage());
         }
     }
+
+    /*método para cargar la fecha seleccionada en el DatePicker */
+    public void onDateSelected(java.util.Date fechaSeleccionada, int viewId)
+    {
+        EditText fechaEditText =  (EditText) findViewById(viewId);
+        fechaEditText.setText(dateFormat.format(fechaSeleccionada));
+    }
+
 
     private void popUpCancel(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

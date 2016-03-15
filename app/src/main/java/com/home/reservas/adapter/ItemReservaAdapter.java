@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.home.reservas.R;
+import com.home.reservas.ReservasData;
 import com.home.reservas.model.Reserva;
 
 /**
@@ -48,7 +49,7 @@ public class ItemReservaAdapter extends BaseAdapter{
 
             numeroReserva.setText(String.valueOf(reserva.getNumero()));
             nombreReserva.setText(reserva.getLugar());
-            SimpleDateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dateFormat =  new SimpleDateFormat(ReservasData.dateFormat);
             fechaInicioReserva.setText(dateFormat.format(reserva.getFecha_inicio()));
         return convertView;
 

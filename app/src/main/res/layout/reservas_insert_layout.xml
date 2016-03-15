@@ -51,17 +51,21 @@
 
             <TextView
                 android:id="@+id/textViewFInicio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/text_view_fecha_inicio" />
+
 
             <EditText
                 android:id="@+id/editTextFInicio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="true"
-                android:inputType="date" />
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false" />
+
 
         </TableRow>
 
@@ -72,17 +76,19 @@
 
             <TextView
                 android:id="@+id/textViewFFin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="@string/text_view_fecha_fin" />
 
             <EditText
                 android:id="@+id/editTextFFin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="true"
-                android:inputType="date" />
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false" />
 
         </TableRow>
 

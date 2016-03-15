@@ -3,19 +3,24 @@ package com.home.reservas;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.home.reservas.api.ICloudReservas;
 import com.home.reservas.client.HttpClientReservas;
+import com.home.reservas.fragment.DatePickerFragment;
 import com.home.reservas.model.Reserva;
 
-import java.sql.Date;
+import org.w3c.dom.Text;
+
+import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -25,13 +30,13 @@ import retrofit.Retrofit;
 /**
  * Created by Reynaldo on 04/03/2016.
  */
-public class DetalleReservaActivity extends Activity {
+public class DetalleReservaActivity extends Activity implements DatePickerFragment.onDateSelectedListener{
 
     private Reserva reserva;
     private ICloudReservas iCloudReservas;
 
     private DatePickerDialog fechaDialog;
-    SimpleDateFormat dateFormat =  new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat dateFormat =  new SimpleDateFormat(ReservasData.dateFormat);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class DetalleReservaActivity extends Activity {
     private void initializeActivity()
     {
 
+        final Bundle bundle = new Bundle(1);
         reserva = ReservasData.getInstace().getReserva();
         iCloudReservas  = HttpClientReservas.createClient(ICloudReservas.class);
 
@@ -66,15 +72,21 @@ public class DetalleReservaActivity extends Activity {
         fechaInicioReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker(fechaInicioReserva);
+                bundle.putInt("view",R.id.editTextFInicio);
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "datePicker");
             }
         });
         //evento de calendarios
         final EditText fechaFinReserva =  (EditText) findViewById(R.id.editTextFFin);
-        fechaInicioReserva.setOnClickListener(new View.OnClickListener() {
+        fechaFinReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker(fechaFinReserva);
+                bundle.putInt("view",R.id.editTextFFin);
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setArguments(bundle);
+                newFragment.show(getFragmentManager(), "datePicker");
             }
         });
 
@@ -87,8 +99,8 @@ public class DetalleReservaActivity extends Activity {
     {
 
         EditText numeroReserva =  (EditText) findViewById(R.id.editTextReservaId);
-        EditText fechaInicioReserva =  (EditText) findViewById(R.id.editTextFInicio);
-        EditText fechaFinReserva =  (EditText) findViewById(R.id.editTextFFin);
+        TextView fechaInicioReserva =  (TextView) findViewById(R.id.editTextFInicio);
+        TextView fechaFinReserva =  (TextView) findViewById(R.id.editTextFFin);
         EditText horasReserva =  (EditText) findViewById(R.id.editTextHora);
         EditText lugarReserva =  (EditText) findViewById(R.id.editTextLugar);
         EditText estadoReserva =  (EditText) findViewById(R.id.editTextEstado);
@@ -116,7 +128,7 @@ public class DetalleReservaActivity extends Activity {
 
             @Override
             public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                if (response.body().booleanValue()==true) {
+                if (response.body().booleanValue() == true) {
                     popUpAppUpate();
                 } else {
                     popUpAppError();
@@ -130,33 +142,28 @@ public class DetalleReservaActivity extends Activity {
     private void gatherReservaDetail()
     {
         EditText numeroReserva =  (EditText) findViewById(R.id.editTextReservaId);
-        EditText fechaInicioReserva =  (EditText) findViewById(R.id.editTextFInicio);
-        EditText fechaFinReserva =  (EditText) findViewById(R.id.editTextFFin);
+        TextView fechaInicioReserva =  (TextView) findViewById(R.id.editTextFInicio);
+        TextView fechaFinReserva =  (TextView) findViewById(R.id.editTextFFin);
         EditText horasReserva =  (EditText) findViewById(R.id.editTextHora);
         EditText lugarReserva =  (EditText) findViewById(R.id.editTextLugar);
         EditText estadoReserva =  (EditText) findViewById(R.id.editTextEstado);
 
+
         reserva.setNumero(Integer.valueOf(numeroReserva.getText().toString()));
-        reserva.setFecha_inicio(Date.valueOf(fechaInicioReserva.getText().toString()));
-        reserva.setFecha_fin(Date.valueOf(fechaFinReserva.getText().toString()));
+        reserva.setFecha_inicio(java.sql.Date.valueOf(fechaInicioReserva.getText().toString()));
+        reserva.setFecha_fin(java.sql.Date.valueOf(fechaFinReserva.getText().toString()));
         reserva.setHoras(Integer.valueOf(horasReserva.getText().toString()));
         reserva.setEstado(Integer.valueOf(estadoReserva.getText().toString()));
         reserva.setLugar(lugarReserva.getText().toString());
 
     }
 
-    /*mostrar la fecha*/
-    private void datePicker(final EditText fechaEditText)   {
 
-        Calendar newCalendar = Calendar.getInstance();
-        fechaDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Date fechaDate = new Date(year,monthOfYear,dayOfMonth);
-                fechaEditText.setText(dateFormat.format(fechaDate));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    /*método para cargar la fecha seleccionada en el DatePicker */
+    public void onDateSelected(Date fechaSeleccionada, int viewId)
+    {
+        EditText fechaEditText =  (EditText) findViewById(viewId);
+        fechaEditText.setText(dateFormat.format(fechaSeleccionada));
     }
 
 

@@ -2,6 +2,7 @@ package com.home.reservas.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.home.reservas.ReservasData;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.text.DateFormat;
@@ -22,7 +23,7 @@ public class HttpClientReservas {
 	public static <S> S createClient(Class<S> serviceClass) {
 
 		Gson gson = new GsonBuilder()
-				.setDateFormat("yyyy-MM-dd")
+				.setDateFormat(ReservasData.dateFormat)
 				.create();
 
 		builder.baseUrl(CLOUD_IMPATIENT_URL);

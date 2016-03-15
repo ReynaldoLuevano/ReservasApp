@@ -66,11 +66,13 @@
 
             <EditText
                 android:id="@+id/editTextFInicio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="true"
-                android:inputType="date" />
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false" />
 
         </TableRow>
 
@@ -85,13 +87,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_view_fecha_fin" />
 
+
             <EditText
                 android:id="@+id/editTextFFin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:enabled="true"
-                android:inputType="date" />
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false" />
 
         </TableRow>
 
@@ -155,6 +160,23 @@
                 android:ems="10"
                 android:enabled="true"
                 android:inputType="number" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
         </TableRow>
 

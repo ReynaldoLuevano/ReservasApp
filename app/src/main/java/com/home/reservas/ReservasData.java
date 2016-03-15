@@ -9,6 +9,7 @@ public class ReservasData {
 
     private Reserva reserva;
     private static final ReservasData reservasData = new ReservasData();
+    public static final String dateFormat="yyyy-MM-dd";
 
     public Reserva getReserva()
     {
