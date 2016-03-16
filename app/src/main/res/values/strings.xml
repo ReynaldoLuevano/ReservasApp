@@ -34,4 +34,7 @@
     <string name="app_update_message">El registro se ha actualizado correctamente</string>
     <string name="info_message">Información</string>
 
+    <string name="title_activity_login">Reservas</string>
+
+
 </resources>

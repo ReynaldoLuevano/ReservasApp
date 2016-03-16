@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="93dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal|bottom|right"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:textColor="#005eff"
+        android:textSize="60dp" />
+
+    <TableLayout
+        android:layout_width="303dp"
+        android:layout_height="174dp"
+        android:layout_gravity="center"
+        android:padding="20dp">
+
+        <ImageButton
+            android:layout_width="320dp"
+            android:layout_height="51dp"
+            android:id="@+id/btnLoginLinkedIn"
+            android:src="@drawable/ic_linkedin_web"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:scaleType="centerCrop"
+            android:clickable="true" />
+
+        <ImageButton
+            android:layout_width="320dp"
+            android:layout_height="51dp"
+            android:id="@+id/btnLoginGoogle"
+            android:src="@drawable/ic_google_web"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:visibility="visible"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            android:clickable="true" />
+    </TableLayout>
+
+</FrameLayout>
