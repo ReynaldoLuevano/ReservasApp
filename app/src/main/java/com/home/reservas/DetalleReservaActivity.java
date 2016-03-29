@@ -43,9 +43,7 @@ public class DetalleReservaActivity extends Activity implements DatePickerFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservas_detalle_layout);
         initializeActivity();
-
     }
-
 
     private void initializeActivity()
     {
@@ -89,8 +87,6 @@ public class DetalleReservaActivity extends Activity implements DatePickerFragme
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
-
-
     }
 
 
@@ -158,15 +154,12 @@ public class DetalleReservaActivity extends Activity implements DatePickerFragme
 
     }
 
-
     /*método para cargar la fecha seleccionada en el DatePicker */
     public void onDateSelected(Date fechaSeleccionada, int viewId)
     {
         EditText fechaEditText =  (EditText) findViewById(viewId);
         fechaEditText.setText(dateFormat.format(fechaSeleccionada));
     }
-
-
 
     private void popUpAppError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -180,7 +173,6 @@ public class DetalleReservaActivity extends Activity implements DatePickerFragme
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 
     private void popUpAppUpate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

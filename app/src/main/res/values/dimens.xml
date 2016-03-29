@@ -5,4 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="right_dimension_20">20dp</dimen>
     <dimen name="top_dimension">10dp</dimen>
+    <dimen name="reservaId">50dp</dimen>
+    <dimen name="nombreReserva">150dp</dimen>
+    <dimen name="fechaInicio">100dp</dimen>
 </resources>

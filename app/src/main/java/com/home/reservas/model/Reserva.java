@@ -1,11 +1,12 @@
 package com.home.reservas.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Reynaldo on 17/02/2016.
  */
-public class Reserva {
+public class Reserva implements Serializable{
     private int numero;
     private String id_persona;
     private Date fecha_inicio;
@@ -13,6 +14,7 @@ public class Reserva {
     private int horas;
     private String lugar;
     private int estado;
+    private boolean isChecked;
 
     public Reserva() {
         super();
@@ -29,9 +31,6 @@ public class Reserva {
         this.lugar = lugar;
         this.estado = estado;
     }
-
-
-
 
     public int getNumero() {
         return numero;
@@ -89,5 +88,12 @@ public class Reserva {
         this.estado = estado;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
 
 }
