@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -55,6 +58,7 @@ public class ListaActivity extends AppCompatActivity{
     {
         iCloudReservas = HttpClientReservas.createClient(ICloudReservas.class);
         misReservasListView = (ListView) findViewById(R.id.listViewReservas);
+        misReservasListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         //clikcs en la lista de Reservas
         misReservasListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,16 +66,14 @@ public class ListaActivity extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ReservasData.getInstace().setReserva((Reserva) misReservasListView.getAdapter().getItem(position));
-                Intent intent = new Intent(ListaActivity.this,DetalleReservaActivity.class);
+                Intent intent = new Intent(ListaActivity.this, DetalleReservaActivity.class);
                 startActivity(intent);
             }
         });
         //clikcs en la lista de Reservas
-
-
-
         //TODO modificar el 1 por el ID del usuario que se autentica
-        loadDataFromReservasCloudService("1");
+        Reserva r = (Reserva) getIntent().getExtras().getSerializable("reserva");
+        loadDataFromReservasCloudService(r.getId_persona());
     }
 
 
@@ -86,11 +88,19 @@ public class ListaActivity extends AppCompatActivity{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-         if (id == R.id.action_settings) {
-            return true;
-        }
 
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Log.i("Action Bar", "Settings Menu");
+                return  true;
+            case R.id.deleteIconBar:
+                for(int i = 0; i < misReservas.size() ; i++){
+                    if(misReservas.get(i).isChecked()){
+                        deleteDataFromReservasCloudService(misReservas.get(i).getNumero(), misReservas.get(i).getId_persona());
+                    }
+                }
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -98,7 +108,7 @@ public class ListaActivity extends AppCompatActivity{
 
     private void loadDataFromReservasCloudService(String usuario)
     {
-       Call<List<Reserva>> callReservasList = iCloudReservas.getMisReservas(usuario);
+        Call<List<Reserva>> callReservasList = iCloudReservas.getMisReservas(usuario);
         callReservasList.enqueue(new Callback<List<Reserva>>() {
 
             @Override
@@ -107,7 +117,7 @@ public class ListaActivity extends AppCompatActivity{
                 if(response.isSuccess()){
                     misReservas = response.body();
                     if(misReservas != null){
-                       laodMisReservasIU(misReservas);
+                        laodMisReservasIU(misReservas);
                         //barra de progreso desaparece al cargar la lista
                         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
                         progressBar.setVisibility(View.INVISIBLE);
@@ -126,7 +136,38 @@ public class ListaActivity extends AppCompatActivity{
                 t.printStackTrace();
             }
         });
+    }
 
+    private void deleteDataFromReservasCloudService(int numeroReserva, final String usuario)
+    {
+        Call<Boolean> callReservasList = iCloudReservas.deleteReserva(numeroReserva);
+        callReservasList.enqueue(new Callback<Boolean>() {
+
+            @Override
+            public void onResponse(retrofit.Response<Boolean> response, Retrofit retrofit) {
+                Log.d("ListActivity", "Status Code = " + response.code());
+                if(response.isSuccess()){
+                    Boolean isDeleted = response.body();
+                    if(isDeleted != null){
+                        loadDataFromReservasCloudService(usuario);
+                        //barra de progreso desaparece al cargar la lista
+                        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                        progressBar.setVisibility(View.INVISIBLE);
+
+                    }else{
+                        System.out.print("error");
+                    }
+                }else{
+                    System.out.print("error");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("ListActivity", " Exception: " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
     }
 
     private void laodMisReservasIU(List<Reserva> reservas){
@@ -142,6 +183,5 @@ public class ListaActivity extends AppCompatActivity{
         } catch (Exception e) {
             Log.e("Reserva", "Exception: " + e.getMessage());
         }
-
     }
 }
