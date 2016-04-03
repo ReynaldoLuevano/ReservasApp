@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements LinkedInLoginFra
             @Override
             public void onClick(View v) {
                 //TODO conectar con login de Google
-                Intent intent = new Intent(LoginActivity.this, ListaActivity.class);
+                Intent intent = new Intent(LoginActivity.this, GoogleLoginActivity.class);
                 startActivity(intent);
             }
         });
